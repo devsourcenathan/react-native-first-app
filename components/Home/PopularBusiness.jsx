@@ -1,38 +1,38 @@
+
 import { View, Text, FlatList } from 'react-native'
 import React, { useEffect,useState } from 'react'
 import { Colors } from '@/constants/Colors'
-import {query, collection, getDocs} from 'firebase/firestore'
+import {query, collection, getDocs, limit} from 'firebase/firestore'
 import { db } from '../../configs/FirebaseConfig'
-import CategoryItem from './CategoryItem'
+import PopularBusinessCard from './PopularBusinessCard'
 
+export default function PopularBusiness() {
 
-export default function Category() {
+    const [businessList, setBusinessList] = useState([])
 
-    const [categoryList, setCategoryList] = useState([])
-
-    const getCategoryList = async () => {
-        setCategoryList([])
-        const q = query(collection(db, 'Category'))
+    const getBusinessList = async () => {
+        setBusinessList([])
+        const q = query(collection(db, 'BusinessList'), limit(10))
         const querySnapshot = await getDocs(q)
 
         querySnapshot.docs.forEach((doc) => {
-            setCategoryList(prev => [...prev, doc.data()])
+            setBusinessList(prev => [...prev, doc.data()])
          })
     }
 
     useEffect(() => {
-        getCategoryList()
+        getBusinessList()
     },[])
 
   return (
     <View>
-        <View 
+      <View 
             style={{
                 display: "flex",
                 justifyContent: "space-between",
                 flexDirection: "row",
-                padding: 20,
-             }} 
+                padding: 15, 
+            }} 
         >
             <Text
                 style={{ 
@@ -40,7 +40,7 @@ export default function Category() {
                     fontFamily: 'outfit-bold',
                 }}
             >
-                Category
+                Popular Business
                 
             </Text>
             <Text
@@ -53,17 +53,12 @@ export default function Category() {
             </Text>
         </View>
 
-        <FlatList
-            style={{margin: 20}}
-            data={categoryList}
+        <FlatList 
+            data={businessList}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({item, index}) => (
-                <CategoryItem 
-                category={item} 
-                key={index} 
-                onCategoryPress={(item) => console.log(item)}
-                />
+                <PopularBusinessCard business={item} key={index} />
             )}
         />
     </View>
