@@ -46,13 +46,16 @@ export default function LoginScreen() {
             <Text style={{color: Colors.PRIMARY}}> Comunity Business Directory</Text> App
           </Text>
 
-          <Text style={{
+          <Text 
+          style={{
             fontFamily: 'outfit',
             fontSize: 15,
             textAlign: 'center',
             marginVertical: 15,
             color: Colors.GRAY
-          }}>Find your favorite business near your and post your own business to your community</Text>
+          }}>
+            Find your favorite business near your and post your own business to your community
+            </Text>
       <TouchableOpacity style={styles.btn} onPress={onPress}>
         <Text style={{textAlign: 'center', color: '#fff', fontFamily: 'outfit'}}>Let's Get Started</Text>
       </TouchableOpacity>
