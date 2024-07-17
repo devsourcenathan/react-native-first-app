@@ -2,7 +2,6 @@ import { View, Text, FlatList, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { db } from '../../configs/FirebaseConfig'
 import {query, collection, getDocs} from 'firebase/firestore'
-import {Colors} from '../../constants/Colors'
 export default function Slider() {  
 
     const [sliderList, setSliderList] = useState([])
